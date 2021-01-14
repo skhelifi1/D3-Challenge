@@ -59,17 +59,24 @@ d3.csv("data/data.csv").then (function(dataInfo) {
         .append("circle")
         .attr("cx", function (d) { return xScale(d.income); } )
         .attr("cy", function (d) { return yScale(d.smokes); } )
-        .attr("r", function (d) { return Math.log(d.income) * 30;})
+        .attr("r", function (d) { return Math.log(d.income);})
         .attr("stroke", "black")
         .style("fill", "#69b3a2")
-        .append("text").text(function(d) { 
-        //console.log(d.abbr)
-    
-        return xScale(d.abbr);
+        .append("text")
+        .attr("x", function(d) {           
+            return xScale(d.income);
+        })
+        .attr("text-anchor", "middle")
+        .attr("y", function(d) {
+          return yScale(d.smokes);
+        })
+        .text(function(d) {
+          return `${d.abbr}`;
+        })
+        // .attr("font-family", "sans-serif")
+        // .attr("font-size", "10px")
+        // .attr("fill", "red");
         
-     })
-        // .attr("x", function (d) { return xAxis(d.income); })
-        // .attr("y", function (d) { return yAxis(d.smokes); });
     
     }).catch(function(error) {
       console.log(error);
