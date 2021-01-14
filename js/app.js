@@ -1,11 +1,11 @@
 // @TODO: YOUR CODE HERE!
 var svgWidth = 1000;
-var svgHeight = 600;
+var svgHeight = 700;
 var margin = {
     top: 90,
-    right: 100,
+    right: 10,
     bottom: 50,
-    left: 100
+    left: 80
   };
   
   // chart area minus margins
@@ -33,12 +33,12 @@ d3.csv("data/data.csv").then (function(dataInfo) {
       // Create a scale for your independent (x) coordinates
     var xScale = d3.scaleLinear()
         .domain(d3.extent(dataInfo, d => d.income))
-        .range([0, svgWidth]);
+        .range([0, chartWidth]);
     
       // Create a scale for your dependent (y) coordinates
     var yScale = d3.scaleLinear()
         .domain([0, d3.max(dataInfo, d => d.smokes)])
-        .range([svgHeight, 0]);
+        .range([chartHeight, 0]);
 
     var xAxis = d3.axisBottom(xScale);
     var yAxis = d3.axisLeft(yScale);
@@ -48,7 +48,7 @@ d3.csv("data/data.csv").then (function(dataInfo) {
         .call(xAxis);
 
     svg.append("g")
-        .attr("transform", "translate(10,-140)")
+        .attr("transform", "translate(10,0)")
         .call(yAxis);
 
     
