@@ -1,10 +1,10 @@
 // @TODO: YOUR CODE HERE!
 var svgWidth = 1000;
-var svgHeight = 700;
+var svgHeight = 800;
 var margin = {
-    top: 90,
+    top: 60,
     right: 10,
-    bottom: 50,
+    bottom: 120,
     left: 80
   };
   
@@ -17,6 +17,9 @@ var svg = d3.select("#scatter")
     .attr("width", svgWidth)
     .attr("height", svgHeight)
     .attr("transform", "translate(10,100)");
+
+var chartGroup = svg.append("g")
+.attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 d3.csv("data/data.csv").then (function(dataInfo) {
 
@@ -43,17 +46,29 @@ d3.csv("data/data.csv").then (function(dataInfo) {
     var xAxis = d3.axisBottom(xScale);
     var yAxis = d3.axisLeft(yScale);
 
-    svg.append("g")
+    chartGroup.append("g")
         .attr("transform", `translate(0, ${chartHeight})`)
-        .call(xAxis);
+        .call(xAxis)
+        .append("text")
+        .text("Income")
+        .attr("transform", `translate(${chartWidth/2}, 30)`)
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "30px")
+        .attr("color", "black");
 
-    svg.append("g")
+    chartGroup.append("g")
         .attr("transform", "translate(10,0)")
-        .call(yAxis);
+        .call(yAxis)
+        .append("text")
+        .text("Smoking %")
+        .attr("transform", `translate(${chartHeight/2}, 10)`)
+        // .attr("font-family", "sans-serif")
+        // .attr("font-size", "30px")
+        // .attr("color", "black");;
 
     
       // Append a path element to the svg, make sure to set the stroke, stroke-width, and fill attributes.
-    svg.selectAll("circle")
+    chartGroup.selectAll("circle")
         .data(dataInfo)
         .enter()
         .append("circle")
@@ -63,11 +78,11 @@ d3.csv("data/data.csv").then (function(dataInfo) {
         .attr("stroke", "black")
         .style("fill", "#69b3a2")
         .append("text")
-        .attr("x", function(d) {           
+        .attr("dx", function(d) {           
             return xScale(d.income);
         })
         .attr("text-anchor", "middle")
-        .attr("y", function(d) {
+        .attr("dy", function(d) {
           return yScale(d.smokes);
         })
         .text(function(d) {
@@ -76,7 +91,7 @@ d3.csv("data/data.csv").then (function(dataInfo) {
         // .attr("font-family", "sans-serif")
         // .attr("font-size", "10px")
         // .attr("fill", "red");
-        
+                  
     
     }).catch(function(error) {
       console.log(error);
