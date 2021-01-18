@@ -78,20 +78,21 @@ d3.csv("data/data.csv").then (function(dataInfo) {
         .attr("stroke", "black")
         .style("fill", "#69b3a2")
         .append("text")
+        .text(function(d) {
+          return `${d.abbr}`;
+        })
         .attr("dx", function(d) {           
             return xScale(d.income);
         })
         .attr("text-anchor", "middle")
         .attr("dy", function(d) {
-          return yScale(d.smokes);
+            return yScale(d.smokes);
         })
-        .text(function(d) {
-          return `${d.abbr}`;
-        })
-        // .attr("font-family", "sans-serif")
-        // .attr("font-size", "10px")
-        // .attr("fill", "red");
-                  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "10px")
+        .attr("fill", "red");
+
+                          
     
     }).catch(function(error) {
       console.log(error);
